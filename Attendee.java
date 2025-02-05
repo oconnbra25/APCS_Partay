@@ -25,26 +25,31 @@ public class Attendee {
 	}
 	
 //getters and setters
-	//get tableID
-	public int getTableID {
-		return tableID;
-	}
 	
-	//get SeatID
-	public int getSeatID {
-		return seatID;
-	}
-	
-	//get coID
-	public int getCompanyID {
-		return companyID;
+	//get name
+	public String getName() {
+		return name;
 	}
 	
 	//toString
-	public String getAttendee {
+	public String getAttendee() { //to get general info about the attendee
 		if (seatID == -1 && tableID == -1)
 		{
-			return name + 
+			return name + ", " + companyID;
+		}
+		else if (seatID == -1)
+		{
+			return name + ", " + companyID + ", " + seatID;
+		}
+		else if (tableID == -1)
+		{
+			return name + ", " + companyID + ", " + tableID;
+		}
+		else 
+		{
+			return name + ", " + companyID + ", " + tableID + seatID;
+		}
+	}
 }
 		
 		
