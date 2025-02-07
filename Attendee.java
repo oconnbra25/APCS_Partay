@@ -1,9 +1,9 @@
 /**
 * Attendee.java class for creating attendee objects in Party Planner
 * @author Brady OC
-* @since 2/3/25
+* @since 2/7/25
 * Precodnitions: txt files to import attendee objects
-* Postconditions: generates and attendee object with name, tableID, tablePos, and companyID
+* Postconditions: generates an attendee object with name, tableID, tablePos, and companyID
 * 
 */
 
@@ -47,7 +47,7 @@ public class Attendee {
 		}
 		else 
 		{
-			return name + ", " + companyID + ", " + tableID + seatID;
+			return name + ", " + companyID + ", " + tableID + ", " + seatID;
 		}
 	}
 }
