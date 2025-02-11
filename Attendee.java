@@ -31,6 +31,10 @@ public class Attendee {
 		return name;
 	}
 	
+	public String getCompany() {
+		return companyID;
+	}
+	
 	//toString
 	public String getAttendee() { //to get general info about the attendee
 		if (seatID == -1 && tableID == -1)
