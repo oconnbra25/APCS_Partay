@@ -1,7 +1,7 @@
 /**
 * Partay.java class for running the party
 * @author Brady OC
-* @since 2/11/25
+* @since 2/13/25
 * Precodnitions: attendee objects to put in at table and # of tables & chairs
 * Postconditions: generates attendees seat numbers
 * 
@@ -14,11 +14,11 @@ import java.util.ArrayList; // Import the ArrayList utilities
 
 public class Partay 
 {
+	//create array list
+	ArrayList<Attendee> attendees = new ArrayList<Attendee>(); //list for the attendees
+	
 	public Partay (int table, int chair) 
 	{
-		//create array list
-		ArrayList<Attendee> attendees = new ArrayList<Attendee>(); //list for the attendees
-		
 		//this try catch is reading the file 
 		Scanner scan = new Scanner(System.in); //for keyboard inputs 
 		try {
@@ -39,9 +39,10 @@ public class Partay
 		
 		int tableNum = table;
 		int chairNum = chair;
-		tables = new Attendee [tableNum][chairNum];
+		Attendee[][] tables = new Attendee [tableNum][chairNum];
 		ArrayList<Attendee> attendeesToSeat = attendees; //list for the attendees to be seated
 		boolean noCompany = true;
+		boolean whileRunner = true;
 		int l = 0;
 		
 		
@@ -50,7 +51,7 @@ public class Partay
 			for (int k = 0; k < chairNum; k++)
 			{
 				l = 0;
-				while (true)
+				while (whileRunner)
 				{
 					//this loop iterates through the
 					for (int j = 0; j < chairNum; j++) //this loops throguh the entirety of the current table to ensure no one sitting there is part of the same company
@@ -73,11 +74,11 @@ public class Partay
 					}
 					else if (l == attendeesToSeat.size() - 1)
 					{
-						break;
-					{
+						whileRunner = false;
+					}
 					else
 					{
-						l++ //iterator to go to next Attendee in attendeesToSeat
+						l++; //iterator to go to next Attendee in attendeesToSeat
 					}
 				}
 			}
@@ -96,10 +97,10 @@ public class Partay
 		Boolean tempFinder = true;
 		for (Attendee attendee : attendees)
 		{
-			if (attendee.getName().equals(searchAttendee))
+			if (attendee.getName().equals(input))
 			{
-				return attendee.getAttendee();
 				tempFinder = false;
+				return attendee.getAttendee();
 			}
 		}
 		
@@ -107,5 +108,6 @@ public class Partay
 		{
 			return "Person not found";
 		}
+		return "";
 	}
 }
