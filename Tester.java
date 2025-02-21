@@ -1,7 +1,7 @@
 /**
 * Tester.java class for testing the program
 * @author Brady OC
-* @since 2/20/25
+* @since 2/21/25
 * Precodnitions: nothing
 * Postconditions: runs the entire program from start to end
 * 
@@ -13,7 +13,29 @@ import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.ArrayList; // Import the ArrayList utilities
 
 public class Tester {
+	
 	public static void main(String[] args) {
+		//create array list
+		ArrayList<String> companies = new ArrayList<String>(); //list for the companies
+		
+		//this try catch is reading the file 
+		Scanner scan = new Scanner(System.in); //for keyboard inputs 
+		try {
+			File myObj = new File("companies.txt");
+			Scanner myReader = new Scanner(myObj); //for the file inputs
+			myReader.nextLine();
+			while (myReader.hasNextLine()) {
+				String data = myReader.nextLine();
+				String[] eachColumn = data.split(",");
+				companies.add(eachColumn[1]);
+				myReader.nextLine();
+			}
+			myReader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+			e.printStackTrace();
+		}
+		
 		
 		//scanner to search for inputs by the user
 		Scanner scan1 = new Scanner(System.in);
@@ -40,16 +62,32 @@ public class Tester {
 			
 			int loopInput = scan1.nextInt();
 			String tempLine = scan1.nextLine(); //clear the buffer
-			if (loopInput == 1)
+			if (loopInput == 1) //add attendees
 			{
-				//attempting to add someone to the array list
-				System.out.println("Please enter their first and last name and company ID like so: (first name) (last name),(companyID)");
-				String registerPerTemp = scan1.nextLine();
-				party.addAttendee(registerPerTemp);
+				int counted = 0;
+				for (Attendee b : party.returnList()) //to see if everyone has a seat or not
+				{
+					if (b.getSeat() != -1)
+					{
+						counted++;
+					}
+				}
 				
-				System.out.println("\n");
+				if (counted > (Integer.parseInt(tableChair[0]) * Integer.parseInt(tableChair[1])))
+				{
+					System.out.println("There is no space left for more Attendees");
+				}
+				else
+				{
+					//attempting to add someone to the array list
+					System.out.println("Please enter their first and last name and company ID like so: (first name) (last name),(companyID)");
+					String registerPerTemp = scan1.nextLine();
+					party.addAttendee(registerPerTemp);
+					
+					System.out.println("\n");
+				}
 			}
-			else if (loopInput == 2)
+			else if (loopInput == 2) //search attendees DONE
 			{
 				//search for someone
 				System.out.println("Please enter their first and last name like so: (first name) (last name)");
@@ -59,18 +97,44 @@ public class Tester {
 				
 				System.out.println("\n");
 			}
-			else if (loopInput == 3)
+			else if (loopInput == 3) //print roster by table DONE
 			{
 				System.out.println("Please enter the table you would like to search for like so: (int)");
 				int searchTable = scan1.nextInt();
 				
-				party.tableRost(searchTable, tables);
-			}
-			else if (loopInput == 4)
-			{
+				Attendee[] temp = party.tableRost(searchTable);
 				
+				for (int i = 0; i < Integer.parseInt((tableChair[1])); i++)
+				{
+					System.out.println(temp[i].getAttendee());
+				}
 			}
-			else if (loopInput == 5)
+			else if (loopInput == 4) //print by company DONE
+			{
+				System.out.println("Please enter the companyID you would like to search for like so: (int)");
+				int o = 1;
+				
+				for (String h : companies) //prints out companies and their respective IDs
+				{
+					System.out.println(o + h);
+					o++;
+				}
+				
+				int searchComp = scan1.nextInt();
+				
+				ArrayList<Attendee> temper = new ArrayList<Attendee>();
+				
+				temper = party.returnList();
+				
+				for (Attendee j : temper)
+				{
+					if (j.getCompany() == searchComp)
+					{
+						System.out.println(j.getAttendee());
+					}
+				}
+			}
+			else if (loopInput == 5) //end program DONE
 			{
 				runner = false;
 			}
