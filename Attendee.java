@@ -35,6 +35,10 @@ public class Attendee {
 		return companyID;
 	}
 	
+	public int getSeat() {
+		return seatID;
+	}
+	
 	//toString
 	public String getAttendee() { //to get general info about the attendee
 		if (seatID == -1 && tableID == -1)
@@ -54,10 +58,9 @@ public class Attendee {
 			return name + ", " + companyID + ", " + tableID + ", " + seatID;
 		}
 	}
+	
+	public void setSpot(int seat, int table) {
+		seatID = seat;
+		tableID = table;
+	}
 }
-		
-		
-		
-		//set tableID
-		//set seatID
-		//set
