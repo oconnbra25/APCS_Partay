@@ -1,7 +1,7 @@
 /**
 * Partay.java class for running the party
 * @author Brady OC
-* @since 2/13/25
+* @since 2/20/25
 * Precodnitions: attendee objects to put in at table and # of tables & chairs
 * Postconditions: generates attendees seat numbers
 * 
@@ -37,77 +37,95 @@ public class Partay
 			e.printStackTrace();
 		}
 		
+		//sorting people into tables
+		
 		int tableNum = table;
 		int chairNum = chair;
 		Attendee[][] tables = new Attendee [tableNum][chairNum];
-		ArrayList<Attendee> attendeesToSeat = attendees; //list for the attendees to be seated
+		//ArrayList<Attendee> attendeeToSeat = attendees;
 		boolean noCompany = true;
 		boolean whileRunner = true;
-		int l = 0;
+		//int l = 0;
+		int benchmark = 0;
+		int counter = 0;
 		
 		
-		for (int i = 0; i < tableNum; i++)
+		for (int i = 0; i < tableNum; i++) //go through tables
 		{
-			for (int k = 0; k < chairNum; k++)
+			for (int k = 0; k < chairNum; k++) //go through chairs
 			{
-				l = 0;
-				while (whileRunner)
+				counter = 0;
+				while (tables[i][k] == null)
 				{
-					//this loop iterates through the
-					for (int j = 0; j < chairNum; j++) //this loops throguh the entirety of the current table to ensure no one sitting there is part of the same company
+					for (Attendee h : attendees) //setting benchmark
 					{
-						if (tables[i][j].getCompany() != attendeesToSeat.get(l).getCompany()) //l is a int to check every index of attendeesToSeat to make sure that its going to the next attendee
+						if (h.getSeat() == -1)
 						{
-							noCompany = true;
+							benchmark = counter;
+							break;
 						}
 						else
+						{
+							counter++;
+						}
+					}
+					
+					//check each row of seats for if a person has the same company
+					noCompany = true;
+					
+					for (int j = 0; j < chairNum; j++)
+					{
+						if (tables[i][j] == null)
+						{
+						}
+						else if (tables[i][j].getCompany() == attendees.get(benchmark).getCompany())
 						{
 							noCompany = false;
 						}
 					}
 					
-					if (noCompany) //this is there to say that there is no one from the same company
+					if (counter == attendees.size()) //here so that when it reaches the end of the attendees
 					{
-						tables[i][k] = attendeesToSeat.get(0);
-						attendeesToSeat.remove(0);
 						break;
 					}
-					else if (l == attendeesToSeat.size() - 1)
+					
+					if (noCompany)
 					{
-						whileRunner = false;
+						tables[i][k] = attendees.get(benchmark);
+						attendees.get(benchmark).setSpot(k, i);
+						System.out.println(attendees.get(benchmark).getAttendee());
 					}
-					else
-					{
-						l++; //iterator to go to next Attendee in attendeesToSeat
-					}
+					
+					counter++;	
 				}
 			}
-		}		
+		}
 	}
-	
-	public void addAttendee(String input)
+		
+	public void addAttendee(String input) //just a tester
 	{
 		String[] registerInput = input.split(",");
 		Attendee att = new Attendee(registerInput[0], Integer.parseInt(registerInput[1]));
 		attendees.add(att);
-	}
-	
+	}	
+		
 	public String searchAttendees(String input)
 	{
-		Boolean tempFinder = true;
 		for (Attendee attendee : attendees)
 		{
 			if (attendee.getName().equals(input))
 			{
-				tempFinder = false;
 				return attendee.getAttendee();
 			}
 		}
 		
-		if (tempFinder)
-		{
-			return "Person not found";
-		}
-		return "";
+		return "Person not found";
+	}
+	
+	public Attendee[] tableRost(int tablePos, Attendee[][] tables)
+	{
+		Attendee[] table = {tables[tablePos][0], tables[tablePos][1], tables[tablePos][2], tables[tablePos][3], 
+		tables[tablePos][4], tables[tablePos][5], tables[tablePos][6], tables[tablePos][7], tables[tablePos][8], tables[tablePos][9]};
+		return table; //to figure out
 	}
 }
