@@ -1,7 +1,7 @@
 /**
 * Tester.java class for testing the program
 * @author Brady OC
-* @since 2/13/25
+* @since 2/20/25
 * Precodnitions: nothing
 * Postconditions: runs the entire program from start to end
 * 
@@ -34,7 +34,9 @@ public class Tester {
 			System.out.println("Enter the number corresponding to what you would like to do:");
 			System.out.println("1. Add a person");
 			System.out.println("2. Search for someone");
-			System.out.println("3. Quit Program");
+			System.out.println("3. Print Table Rosters");
+			System.out.println("4. Print Company Rosters");
+			System.out.println("5. Quit Program");
 			
 			int loopInput = scan1.nextInt();
 			String tempLine = scan1.nextLine(); //clear the buffer
@@ -59,39 +61,19 @@ public class Tester {
 			}
 			else if (loopInput == 3)
 			{
+				System.out.println("Please enter the table you would like to search for like so: (int)");
+				int searchTable = scan1.nextInt();
+				
+				party.tableRost(searchTable, tables);
+			}
+			else if (loopInput == 4)
+			{
+				
+			}
+			else if (loopInput == 5)
+			{
 				runner = false;
 			}
 		}
-		
-		//Graveyard:
-			/* //spacer between the data being printed and the test print for the entire array list
-			
-			System.out.println("");
-			
-			//test print
-			for (Attendee j : attendees)
-			{
-				System.out.println(j.getAttendee());
-			}
-			*/
-			
-			/* //finds a specific attendee with the name nico
-			
-			String searchName = "Nico";
-			
-			for (Attendee j : attendees)
-			{
-				if (j.getName().equals("Nico"))
-				{
-					System.out.println(j.getAttendee());
-					break;
-				}
-				else
-				{
-					System.out.println("");
-				}
-			}
-			*/
 	}
 }
-		
